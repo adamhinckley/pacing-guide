@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Old Testament Seminary · Fall 2026</title>
+  <meta name="description" content="Today’s lesson, the past week, and upcoming class days from the Fall 2026 Old Testament seminary pacing guide.">
+  <meta name="theme-color" content="#0d2947">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Seminary">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d2947;
+      --navy-soft: #1c4063;
+      --gold: #c4a35a;
+      --gold-deep: #9a7b3c;
+      --cream: #f3eee4;
+      --paper: #fffcf7;
+      --ink: #1d2a38;
+      --muted: #667487;
+      --line: rgba(13, 41, 71, 0.1);
+      --life: #2f6a57;
+      --mastery: #8a5a2b;
+      --assess: #4c5d78;
+      --shadow: 0 10px 30px rgba(13, 41, 71, 0.08);
+      --radius: 22px;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Outfit, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1200px 500px at 50% -120px, rgba(196, 163, 90, 0.16), transparent 60%),
+        var(--cream);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(740px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 80px;
+      padding-top: calc(28px + env(safe-area-inset-top));
+      padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 12px 8px 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-deep);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      line-height: 0.95;
+      margin: 14px 0 8px;
+      color: var(--navy);
+    }
+
+    .lede {
+      margin: 0 auto;
+      max-width: 34rem;
+      color: var(--muted);
+      font-weight: 300;
+      font-size: 1.02rem;
+    }
+
+    .today-card {
+      background: linear-gradient(165deg, var(--navy) 0%, var(--navy-soft) 100%);
+      color: #f7f1e5;
+      border-radius: var(--radius);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+
+    .today-card .kicker {
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .today-card h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.7rem, 5vw, 2.15rem);
+      margin: 8px 0 4px;
+      font-weight: 600;
+    }
+
+    .today-card .when {
+      color: rgba(247, 241, 229, 0.72);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .today-card a.lesson {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      margin-top: 8px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      text-decoration: none;
+      border: 1px solid rgba(196, 163, 90, 0.22);
+    }
+
+    .today-card a.lesson:hover,
+    .today-card a.lesson:focus-visible {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .num {
+      flex: 0 0 auto;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(196, 163, 90, 0.18);
+      color: var(--gold);
+    }
+
+    .lesson-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .lesson-copy strong {
+      display: block;
+      font-weight: 500;
+    }
+
+    .lesson-copy span {
+      display: block;
+      color: rgba(247, 241, 229, 0.62);
+      font-size: 0.82rem;
+    }
+
+    .arrow { color: var(--gold); font-size: 1.2rem; }
+
+    .week {
+      margin: 8px 0 32px;
+    }
+
+    .week-head {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: color-mix(in srgb, var(--cream) 88%, transparent);
+      backdrop-filter: blur(10px);
+      padding: 10px 2px 12px;
+    }
+
+    .week-head a {
+      text-decoration: none;
+    }
+
+    .week-scripture {
+      color: var(--gold-deep);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .week-title {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.55rem;
+      margin: 2px 0 0;
+      color: var(--navy);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .days {
+      display: grid;
+      gap: 10px;
+    }
+
+    .day {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px 12px;
+      display: grid;
+      grid-template-columns: 4.6rem 1fr;
+      gap: 12px 14px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset;
+    }
+
+    .day.is-today {
+      border-color: color-mix(in srgb, var(--gold) 55%, var(--line));
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 35%, transparent);
+    }
+
+    .datecol {
+      text-align: center;
+      padding-top: 4px;
+    }
+
+    .dow {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .dom {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.85rem;
+      line-height: 1;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .mon {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .lessons { display: grid; gap: 8px; }
+
+    a.row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      text-decoration: none;
+      padding: 8px 8px 8px 6px;
+      margin: 0 -8px;
+      border-radius: 12px;
+    }
+
+    a.row:hover,
+    a.row:focus-visible {
+      background: rgba(13, 41, 71, 0.045);
+    }
+
+    .pill {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(13, 41, 71, 0.08);
+      color: var(--navy);
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    .kind-life .pill { background: rgba(47, 106, 87, 0.12); color: var(--life); }
+    .kind-mastery .pill { background: rgba(138, 90, 43, 0.12); color: var(--mastery); }
+    .kind-assess .pill { background: rgba(76, 93, 120, 0.12); color: var(--assess); }
+
+    .row-title {
+      font-weight: 500;
+      font-size: 0.98rem;
+    }
+
+    .row-meta {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 1px;
+    }
+
+    .break-note {
+      color: var(--muted);
+      font-style: italic;
+      padding: 8px 0 4px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding-top: 12px;
+    }
+
+    footer a { color: var(--navy-soft); }
+
+    .install {
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --cream: #101822;
+        --paper: #182433;
+        --ink: #edf2f7;
+        --muted: #9aa8b7;
+        --line: rgba(247, 241, 229, 0.08);
+        --navy: #e8eef6;
+        --navy-soft: #c9d6e5;
+        --gold-deep: #d4b36a;
+        color-scheme: dark;
+      }
+      body {
+        background:
+          radial-gradient(900px 420px at 50% -80px, rgba(196, 163, 90, 0.12), transparent 55%),
+          #0c141d;
+      }
+      .week-head {
+        background: color-mix(in srgb, #101822 84%, transparent);
+      }
+      a.row:hover, a.row:focus-visible {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Fall 2026</div>
+      <h1>Old Testament Seminary</h1>
+      <p class="lede">Today’s lesson, the previous week, and upcoming class days, each linked to the teacher manual.</p>
+    </header>
+    <main id="app"></main>
+    <footer>
+      <p>
+        Lessons open in the
+        <a href="https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng">Old Testament Seminary Teacher Manual</a>.
+      </p>
+      <p class="install">Add to Home Screen from your browser’s share menu to keep this guide on your phone.</p>
+    </footer>
+  </div>
+  <script src="pacing-data.js"></script>
+  <script src="pacing-lib.js"></script>
+  <script>
+    const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const DOW = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const KIND_LABEL = {
+      scripture: "Scripture lesson",
+      life: "Life Preparation",
+      mastery: "Doctrinal Mastery",
+      assess: "Assess Your Learning",
+      break: "No school"
+    };
+
+    function isStandalone() {
+      return window.navigator.standalone === true ||
+        window.matchMedia("(display-mode: standalone)").matches;
+    }
+
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    }
+
+    function todayStamp() {
+      const param = new URLSearchParams(location.search).get("date");
+      if (param && /^\d{4}-\d{2}-\d{2}$/.test(param)) return param;
+      return PacingLib.stampFromDate(new Date());
+    }
+
+    function prettyDate(iso) {
+      const dt = PacingLib.parseDate(iso);
+      return `${DOW[dt.getDay()]}, ${MONTHS[dt.getMonth()]} ${dt.getDate()}`;
+    }
+
+    function kindLabel(lesson) {
+      return KIND_LABEL[lesson.kind] || "Lesson";
+    }
+
+    function openAttrs(url) {
+      const ios = isIOS();
+      const standalone = isStandalone();
+      const href = PacingLib.lessonUrl(url, { standalone, ios });
+      const extra = (standalone || ios) ? "" : ` target="_blank" rel="noopener"`;
+      return `href="${href}"${extra}`;
+    }
+
+    function lessonRow(lesson, variant) {
+      const klass = variant === "light" ? "lesson" : `row kind-${lesson.kind}`;
+      const number = variant === "light"
+        ? `<span class="num">${lesson.number}</span>`
+        : `<span class="pill">${lesson.number}</span>`;
+      const meta = variant === "light"
+        ? `<span>${kindLabel(lesson)}</span>`
+        : `<div class="row-meta">${kindLabel(lesson)}</div>`;
+      const title = variant === "light"
+        ? `<strong>${lesson.title}</strong>${meta}`
+        : `<div class="row-title">${lesson.title}</div>${meta}`;
+      const arrow = variant === "light" ? `<span class="arrow" aria-hidden="true">→</span>` : "";
+      return `<a class="${klass}" ${openAttrs(lesson.url)}>
+        ${number}
+        <span class="lesson-copy">${title}</span>
+        ${arrow}
+      </a>`;
+    }
+
+    function render() {
+      const app = document.getElementById("app");
+      const today = todayStamp();
+      const allDays = (window.PACING?.weeks || []).flatMap((week) =>
+        week.days.map((day) => ({ ...day, week }))
+      );
+      const todayDay = allDays.find((day) => day.date === today);
+      const weeks = PacingLib.visibleWeeks(window.PACING?.weeks || [], today);
+
+      if (!weeks.length) {
+        app.innerHTML = `<div class="empty">No upcoming class days. You can still browse the <a href="${window.PACING.manualUrl}">teacher manual</a>.</div>`;
+        return;
+      }
+
+      const todayLessons = todayDay?.lessons || [];
+      const todayHtml = todayDay ? `
+        <section class="today-card" id="today">
+          <div class="kicker">${todayDay.kind === "break" ? "Today" : "Today’s lesson"}</div>
+          <h2>${todayDay.kind === "break" ? todayDay.schedule : (todayLessons[0]?.title || todayDay.label)}</h2>
+          <div class="when">${prettyDate(todayDay.date)}</div>
+          ${todayDay.kind === "break" ? "" : todayLessons.map((lesson) => lessonRow(lesson, "light")).join("")}
+        </section>
+      ` : `
+        <section class="today-card" id="today">
+          <div class="kicker">Today</div>
+          <h2>No class today</h2>
+          <div class="when">${prettyDate(today)}</div>
+        </section>
+      `;
+
+      const weeksHtml = weeks.map((week) => `
+        <section class="week" aria-labelledby="${week.id}">
+          <div class="week-head">
+            <a ${openAttrs(week.overviewUrl)}>
+              <div class="week-scripture">${week.cfm}</div>
+              <h2 class="week-title" id="${week.id}">“${week.cfmTitle}”</h2>
+            </a>
+          </div>
+          <div class="days">
+            ${week.days.map((day) => {
+              const dt = PacingLib.parseDate(day.date);
+              const lessons = day.kind === "break"
+                ? `<div class="break-note">${day.schedule}</div>`
+                : day.lessons.map((lesson) => lessonRow(lesson)).join("");
+              return `<article class="day${day.date === today ? " is-today" : ""}">
+                <div class="datecol">
+                  <div class="dow">${DOW[dt.getDay()].slice(0, 3)}</div>
+                  <div class="dom">${dt.getDate()}</div>
+                  <div class="mon">${MONTHS[dt.getMonth()].slice(0, 3)}</div>
+                </div>
+                <div class="lessons">${lessons}</div>
+              </article>`;
+            }).join("")}
+          </div>
+        </section>
+      `).join("");
+
+      app.innerHTML = todayHtml + weeksHtml;
+    }
+
+    render();
+  </script>
+</body>
+</html>

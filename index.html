@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Old Testament Seminary · Fall 2026</title>
-  <meta name="description" content="Today’s lesson, the past week, and upcoming class days from the Fall 2026 Old Testament seminary pacing guide.">
+  <meta name="description" content="The past week and upcoming class days from the Fall 2026 Old Testament seminary pacing guide.">
   <meta name="theme-color" content="#0d2947">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -31,8 +31,6 @@
       --life: #2f6a57;
       --mastery: #8a5a2b;
       --assess: #4c5d78;
-      --shadow: 0 10px 30px rgba(13, 41, 71, 0.08);
-      --radius: 22px;
       color-scheme: light;
     }
 
@@ -99,85 +97,6 @@
       font-weight: 300;
       font-size: 1.02rem;
     }
-
-    .today-card {
-      background: linear-gradient(165deg, var(--navy) 0%, var(--navy-soft) 100%);
-      color: #f7f1e5;
-      border-radius: var(--radius);
-      padding: 22px 22px 20px;
-      box-shadow: var(--shadow);
-      margin-bottom: 28px;
-    }
-
-    .today-card .kicker {
-      color: var(--gold);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-
-    .today-card h2 {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(1.7rem, 5vw, 2.15rem);
-      margin: 8px 0 4px;
-      font-weight: 600;
-    }
-
-    .today-card .when {
-      color: rgba(247, 241, 229, 0.72);
-      margin-bottom: 16px;
-      font-size: 0.95rem;
-    }
-
-    .today-card a.lesson {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 12px 14px;
-      margin-top: 8px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.08);
-      text-decoration: none;
-      border: 1px solid rgba(196, 163, 90, 0.22);
-    }
-
-    .today-card a.lesson:hover,
-    .today-card a.lesson:focus-visible {
-      background: rgba(255, 255, 255, 0.14);
-    }
-
-    .num {
-      flex: 0 0 auto;
-      width: 2.2rem;
-      height: 2.2rem;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: rgba(196, 163, 90, 0.18);
-      color: var(--gold);
-    }
-
-    .lesson-copy {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .lesson-copy strong {
-      display: block;
-      font-weight: 500;
-    }
-
-    .lesson-copy span {
-      display: block;
-      color: rgba(247, 241, 229, 0.62);
-      font-size: 0.82rem;
-    }
-
-    .arrow { color: var(--gold); font-size: 1.2rem; }
 
     .week {
       margin: 8px 0 32px;
@@ -363,7 +282,7 @@
     <header class="hero">
       <div class="eyebrow">Fall 2026</div>
       <h1>Old Testament Seminary</h1>
-      <p class="lede">Today’s lesson, the previous week, and upcoming class days, each linked to the teacher manual.</p>
+      <p class="lede">The previous week and upcoming class days, each linked to the teacher manual.</p>
     </header>
     <main id="app"></main>
     <footer>
@@ -403,11 +322,6 @@
       return PacingLib.stampFromDate(new Date());
     }
 
-    function prettyDate(iso) {
-      const dt = PacingLib.parseDate(iso);
-      return `${DOW[dt.getDay()]}, ${MONTHS[dt.getMonth()]} ${dt.getDate()}`;
-    }
-
     function kindLabel(lesson) {
       return KIND_LABEL[lesson.kind] || "Lesson";
     }
@@ -420,54 +334,25 @@
       return `href="${href}"${extra}`;
     }
 
-    function lessonRow(lesson, variant) {
-      const klass = variant === "light" ? "lesson" : `row kind-${lesson.kind}`;
-      const number = variant === "light"
-        ? `<span class="num">${lesson.number}</span>`
-        : `<span class="pill">${lesson.number}</span>`;
-      const meta = variant === "light"
-        ? `<span>${kindLabel(lesson)}</span>`
-        : `<div class="row-meta">${kindLabel(lesson)}</div>`;
-      const title = variant === "light"
-        ? `<strong>${lesson.title}</strong>${meta}`
-        : `<div class="row-title">${lesson.title}</div>${meta}`;
-      const arrow = variant === "light" ? `<span class="arrow" aria-hidden="true">→</span>` : "";
-      return `<a class="${klass}" ${openAttrs(lesson.url)}>
-        ${number}
-        <span class="lesson-copy">${title}</span>
-        ${arrow}
+    function lessonRow(lesson) {
+      return `<a class="row kind-${lesson.kind}" ${openAttrs(lesson.url)}>
+        <span class="pill">${lesson.number}</span>
+        <span>
+          <div class="row-title">${lesson.title}</div>
+          <div class="row-meta">${kindLabel(lesson)}</div>
+        </span>
       </a>`;
     }
 
     function render() {
       const app = document.getElementById("app");
       const today = todayStamp();
-      const allDays = (window.PACING?.weeks || []).flatMap((week) =>
-        week.days.map((day) => ({ ...day, week }))
-      );
-      const todayDay = allDays.find((day) => day.date === today);
       const weeks = PacingLib.visibleWeeks(window.PACING?.weeks || [], today);
 
       if (!weeks.length) {
         app.innerHTML = `<div class="empty">No upcoming class days. You can still browse the <a href="${window.PACING.manualUrl}">teacher manual</a>.</div>`;
         return;
       }
-
-      const todayLessons = todayDay?.lessons || [];
-      const todayHtml = todayDay ? `
-        <section class="today-card" id="today">
-          <div class="kicker">${todayDay.kind === "break" ? "Today" : "Today’s lesson"}</div>
-          <h2>${todayDay.kind === "break" ? todayDay.schedule : (todayLessons[0]?.title || todayDay.label)}</h2>
-          <div class="when">${prettyDate(todayDay.date)}</div>
-          ${todayDay.kind === "break" ? "" : todayLessons.map((lesson) => lessonRow(lesson, "light")).join("")}
-        </section>
-      ` : `
-        <section class="today-card" id="today">
-          <div class="kicker">Today</div>
-          <h2>No class today</h2>
-          <div class="when">${prettyDate(today)}</div>
-        </section>
-      `;
 
       const weeksHtml = weeks.map((week) => `
         <section class="week" aria-labelledby="${week.id}">
@@ -496,7 +381,7 @@
         </section>
       `).join("");
 
-      app.innerHTML = todayHtml + weeksHtml;
+      app.innerHTML = weeksHtml;
     }
 
     render();

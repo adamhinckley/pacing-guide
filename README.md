@@ -1,6 +1,6 @@
 # Old Testament Seminary pacing guide
 
-A phone-friendly page for the Fall 2026 4-day Old Testament seminary schedule. It shows **today, the previous week, and all upcoming class days**, and each lesson opens the matching page in the [Old Testament Seminary Teacher Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng).
+A phone-friendly page for the Fall 2026 4-day Old Testament seminary schedule. It shows **the previous week and all upcoming class days**, and each lesson opens the matching page in the [Old Testament Seminary Teacher Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng).
 
 Open [index.html](index.html) in a browser, or enable GitHub Pages on this repository and visit the published site.
 

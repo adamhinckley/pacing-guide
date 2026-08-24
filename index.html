@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Old Testament Seminary · Fall 2026</title>
-  <meta name="description" content="The past week and upcoming class days from the Fall 2026 Old Testament seminary pacing guide.">
+  <meta name="description" content="Today’s class and the rest of the Fall 2026 Old Testament seminary pacing guide.">
   <meta name="theme-color" content="#0d2947">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -231,6 +231,56 @@
       padding: 8px 0 4px;
     }
 
+    .previous {
+      margin: 0 0 20px;
+    }
+
+    .previous summary {
+      cursor: pointer;
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--navy-soft);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .previous summary:hover,
+    .previous summary:focus-visible {
+      border-color: color-mix(in srgb, var(--gold) 40%, var(--line));
+    }
+
+    .previous summary::-webkit-details-marker,
+    .previous summary::marker {
+      display: none;
+      content: "";
+    }
+
+    .previous summary::before {
+      content: "";
+      width: 0.38em;
+      height: 0.38em;
+      border-right: 1.6px solid currentColor;
+      border-bottom: 1.6px solid currentColor;
+      transform: rotate(-45deg);
+      translate: 0 1px;
+      transition: transform 0.15s ease;
+    }
+
+    .previous[open] summary::before {
+      transform: rotate(45deg);
+      translate: 0 -1px;
+    }
+
+    .previous[open] summary {
+      margin-bottom: 16px;
+    }
+
     .empty {
       text-align: center;
       padding: 48px 16px;
@@ -274,6 +324,9 @@
       a.row:hover, a.row:focus-visible {
         background: rgba(255, 255, 255, 0.04);
       }
+      .previous summary {
+        background: var(--paper);
+      }
     }
   </style>
 </head>
@@ -282,7 +335,7 @@
     <header class="hero">
       <div class="eyebrow">Fall 2026</div>
       <h1>Old Testament Seminary</h1>
-      <p class="lede">The previous week and upcoming class days, each linked to the teacher manual.</p>
+      <p class="lede">Today’s class and the days ahead, each linked to the teacher manual.</p>
     </header>
     <main id="app"></main>
     <footer>
@@ -344,44 +397,68 @@
       </a>`;
     }
 
-    function render() {
-      const app = document.getElementById("app");
-      const today = todayStamp();
-      const weeks = PacingLib.visibleWeeks(window.PACING?.weeks || [], today);
+    function dayCard(day, today) {
+      const dt = PacingLib.parseDate(day.date);
+      const lessons = day.kind === "break"
+        ? `<div class="break-note">${day.schedule}</div>`
+        : day.lessons.map((lesson) => lessonRow(lesson)).join("");
+      return `<article class="day${day.date === today ? " is-today" : ""}">
+        <div class="datecol">
+          <div class="dow">${DOW[dt.getDay()].slice(0, 3)}</div>
+          <div class="dom">${dt.getDate()}</div>
+          <div class="mon">${MONTHS[dt.getMonth()].slice(0, 3)}</div>
+        </div>
+        <div class="lessons">${lessons}</div>
+      </article>`;
+    }
 
-      if (!weeks.length) {
-        app.innerHTML = `<div class="empty">No upcoming class days. You can still browse the <a href="${window.PACING.manualUrl}">teacher manual</a>.</div>`;
-        return;
-      }
-
-      const weeksHtml = weeks.map((week) => `
-        <section class="week" aria-labelledby="${week.id}">
+    function weeksHtml(weeks, today, idSuffix) {
+      const suffix = idSuffix || "";
+      return weeks.map((week) => {
+        const headingId = `${week.id}${suffix}`;
+        return `
+        <section class="week" aria-labelledby="${headingId}">
           <div class="week-head">
             <a ${openAttrs(week.overviewUrl)}>
               <div class="week-scripture">${week.cfm}</div>
-              <h2 class="week-title" id="${week.id}">“${week.cfmTitle}”</h2>
+              <h2 class="week-title" id="${headingId}">“${week.cfmTitle}”</h2>
             </a>
           </div>
           <div class="days">
-            ${week.days.map((day) => {
-              const dt = PacingLib.parseDate(day.date);
-              const lessons = day.kind === "break"
-                ? `<div class="break-note">${day.schedule}</div>`
-                : day.lessons.map((lesson) => lessonRow(lesson)).join("");
-              return `<article class="day${day.date === today ? " is-today" : ""}">
-                <div class="datecol">
-                  <div class="dow">${DOW[dt.getDay()].slice(0, 3)}</div>
-                  <div class="dom">${dt.getDate()}</div>
-                  <div class="mon">${MONTHS[dt.getMonth()].slice(0, 3)}</div>
-                </div>
-                <div class="lessons">${lessons}</div>
-              </article>`;
-            }).join("")}
+            ${week.days.map((day) => dayCard(day, today)).join("")}
           </div>
-        </section>
-      `).join("");
+        </section>`;
+      }).join("");
+    }
 
-      app.innerHTML = weeksHtml;
+    function emptyNote(message) {
+      return `<div class="empty">${message} You can still browse the <a href="${window.PACING.manualUrl}">teacher manual</a>.</div>`;
+    }
+
+    function render() {
+      const app = document.getElementById("app");
+      const today = todayStamp();
+      const allWeeks = window.PACING?.weeks || [];
+      const upcoming = PacingLib.upcomingWeeks(allWeeks, today);
+      const previous = PacingLib.previousWeeks(allWeeks, today);
+
+      if (!upcoming.length && !previous.length) {
+        app.innerHTML = emptyNote("No class days in this guide.");
+        return;
+      }
+
+      const previousBlock = previous.length ? `
+        <details class="previous">
+          <summary>Previous lessons</summary>
+          ${weeksHtml(previous, today, "-previous")}
+        </details>
+      ` : "";
+
+      const upcomingBlock = upcoming.length
+        ? weeksHtml(upcoming, today)
+        : emptyNote("No upcoming class days.");
+
+      app.innerHTML = previousBlock + upcomingBlock;
     }
 
     render();

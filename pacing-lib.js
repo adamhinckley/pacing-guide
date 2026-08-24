@@ -17,12 +17,19 @@
     return stampFromDate(dt);
   }
 
-  function visibleWeeks(weeks, today) {
-    const windowStart = addDays(today, -7);
+  function weeksWithDays(weeks, predicate) {
     return (weeks || []).map((week) => ({
       ...week,
-      days: week.days.filter((day) => day.date >= windowStart)
+      days: week.days.filter(predicate)
     })).filter((week) => week.days.length);
+  }
+
+  function upcomingWeeks(weeks, today) {
+    return weeksWithDays(weeks, (day) => day.date >= today);
+  }
+
+  function previousWeeks(weeks, today) {
+    return weeksWithDays(weeks, (day) => day.date < today);
   }
 
   function withLang(url) {
@@ -44,7 +51,8 @@
     parseDate,
     stampFromDate,
     addDays,
-    visibleWeeks,
+    upcomingWeeks,
+    previousWeeks,
     withLang,
     lessonUrl
   };

@@ -1,6 +1,6 @@
 # Old Testament Seminary pacing guide
 
-A phone-friendly page for the Fall 2026 4-day Old Testament seminary schedule. It shows **the previous week and all upcoming class days**, and each lesson opens the matching page in the [Old Testament Seminary Teacher Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng).
+A phone-friendly page for the Fall 2026 4-day Old Testament seminary schedule. It opens on **today’s lesson** and the rest of the year. Earlier class days are under **Previous lessons**. Each lesson opens the matching page in the [Old Testament Seminary Teacher Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng).
 
 Open [index.html](index.html) in a browser, or enable GitHub Pages on this repository and visit the published site.
 
@@ -18,4 +18,4 @@ The navy-and-gold book icon is included so the page looks like a small app on a 
 2. Run `python3 scripts/build-pacing-data.py`.
 3. Refresh `index.html`.
 
-Dates older than a week are hidden automatically, using the device’s local calendar date. Upcoming class days stay visible.
+The default view starts at the device’s local calendar date. Earlier class days stay available under Previous lessons.

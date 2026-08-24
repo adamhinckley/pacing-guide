@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Old Testament Seminary · Fall 2026</title>
   <meta name="description" content="Today’s class and the rest of the Fall 2026 Old Testament seminary pacing guide.">
-  <meta name="theme-color" content="#0d2947">
+  <meta name="theme-color" content="#050506">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Seminary">
@@ -16,22 +16,23 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0d2947;
-      --navy-soft: #1c4063;
-      --gold: #c4a35a;
-      --gold-deep: #9a7b3c;
-      --cream: #f3eee4;
-      --paper: #fffcf7;
-      --ink: #1d2a38;
-      --muted: #667487;
-      --line: rgba(13, 41, 71, 0.1);
-      --life: #2f6a57;
-      --mastery: #8a5a2b;
-      --assess: #4c5d78;
-      color-scheme: light;
+      --bg: #050506;
+      --ink: #f4f6fb;
+      --muted: #9aa3b2;
+      --faint: #6c7583;
+      --gold: #ffd27a;
+      --glass: rgba(255, 255, 255, 0.045);
+      --glass-strong: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 255, 255, 0.14);
+      --border-strong: rgba(255, 255, 255, 0.26);
+      --life: #62e6b4;
+      --mastery: #ffb56b;
+      --assess: #8fb6ff;
+      --scripture: #c7b6ff;
+      color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
@@ -39,12 +40,16 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Outfit, "Segoe UI", sans-serif;
+      font-family: Inter, "Segoe UI", system-ui, sans-serif;
       background:
-        radial-gradient(1200px 500px at 50% -120px, rgba(196, 163, 90, 0.16), transparent 60%),
-        var(--cream);
+        radial-gradient(720px 480px at 12% -8%, rgba(143, 182, 255, 0.14), transparent 60%),
+        radial-gradient(680px 460px at 92% 4%, rgba(199, 182, 255, 0.12), transparent 62%),
+        radial-gradient(760px 520px at 50% 118%, rgba(98, 230, 180, 0.1), transparent 60%),
+        var(--bg);
+      background-attachment: fixed;
       color: var(--ink);
       line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
     }
 
     a { color: inherit; }
@@ -59,56 +64,62 @@
 
     header.hero {
       text-align: center;
-      padding: 12px 8px 28px;
+      padding: 12px 8px 30px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      color: var(--gold-deep);
-      letter-spacing: 0.22em;
+      gap: 10px;
+      color: var(--gold);
+      letter-spacing: 0.32em;
       text-transform: uppercase;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
     }
 
     .eyebrow::before,
     .eyebrow::after {
       content: "";
-      width: 28px;
+      width: 26px;
       height: 1px;
-      background: var(--gold);
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .eyebrow::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
     }
 
     h1 {
-      font-family: "Cormorant Garamond", Georgia, serif;
+      font-family: "Space Grotesk", Inter, sans-serif;
       font-weight: 600;
-      font-size: clamp(2.2rem, 7vw, 3.4rem);
-      line-height: 0.95;
-      margin: 14px 0 8px;
-      color: var(--navy);
+      font-size: clamp(2.1rem, 7vw, 3.2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      margin: 16px 0 10px;
+      color: #fff;
     }
 
     .lede {
       margin: 0 auto;
       max-width: 34rem;
       color: var(--muted);
-      font-weight: 300;
-      font-size: 1.02rem;
+      font-weight: 400;
+      font-size: 1rem;
     }
 
     .week {
-      margin: 8px 0 32px;
+      margin: 8px 0 30px;
     }
 
     .week-head {
       position: sticky;
       top: 0;
       z-index: 2;
-      background: color-mix(in srgb, var(--cream) 88%, transparent);
-      backdrop-filter: blur(10px);
-      padding: 10px 2px 12px;
+      background: rgba(5, 5, 6, 0.72);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      padding: 12px 4px 14px;
     }
 
     .week-head a {
@@ -116,107 +127,126 @@
     }
 
     .week-scripture {
-      color: var(--gold-deep);
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
+      color: var(--gold);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       font-weight: 600;
     }
 
     .week-title {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 1.55rem;
-      margin: 2px 0 0;
-      color: var(--navy);
-      font-style: italic;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+      margin: 4px 0 0;
+      color: #fff;
       font-weight: 500;
     }
 
     .days {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .day {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px 16px 12px;
+      position: relative;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 15px 17px 13px;
       display: grid;
-      grid-template-columns: 4.6rem 1fr;
-      gap: 12px 14px;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset;
+      grid-template-columns: 4.4rem 1fr;
+      gap: 12px 16px;
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.06) inset,
+        0 12px 30px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.18s ease, transform 0.18s ease;
     }
 
     .day.is-today {
-      border-color: color-mix(in srgb, var(--gold) 55%, var(--line));
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 35%, transparent);
+      border-color: color-mix(in srgb, var(--gold) 62%, transparent);
+      background: var(--glass-strong);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.08) inset,
+        0 0 0 1px color-mix(in srgb, var(--gold) 34%, transparent),
+        0 16px 40px rgba(0, 0, 0, 0.5);
     }
 
     .datecol {
       text-align: center;
-      padding-top: 4px;
+      padding-top: 3px;
     }
 
     .dow {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--faint);
       font-weight: 600;
     }
 
     .dom {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 1.85rem;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 2rem;
       line-height: 1;
-      color: var(--navy);
+      color: #fff;
       font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
+    .is-today .dom { color: var(--gold); }
+
     .mon {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--muted);
     }
 
-    .lessons { display: grid; gap: 8px; }
+    .lessons { display: grid; gap: 6px; }
 
     a.row {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: flex-start;
       text-decoration: none;
-      padding: 8px 8px 8px 6px;
+      padding: 8px 10px 8px 8px;
       margin: 0 -8px;
-      border-radius: 12px;
+      border-radius: 14px;
+      transition: background 0.15s ease;
     }
 
     a.row:hover,
     a.row:focus-visible {
-      background: rgba(13, 41, 71, 0.045);
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .pill {
-      width: 2rem;
-      height: 2rem;
+      width: 2.1rem;
+      height: 2.1rem;
       border-radius: 999px;
       display: grid;
       place-items: center;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      background: rgba(13, 41, 71, 0.08);
-      color: var(--navy);
+      font-family: "Space Grotesk", Inter, sans-serif;
+      background: rgba(199, 182, 255, 0.14);
+      border: 1px solid rgba(199, 182, 255, 0.3);
+      color: var(--scripture);
       flex: 0 0 auto;
       margin-top: 1px;
     }
 
-    .kind-life .pill { background: rgba(47, 106, 87, 0.12); color: var(--life); }
-    .kind-mastery .pill { background: rgba(138, 90, 43, 0.12); color: var(--mastery); }
-    .kind-assess .pill { background: rgba(76, 93, 120, 0.12); color: var(--assess); }
+    .kind-life .pill { background: rgba(98, 230, 180, 0.14); border-color: rgba(98, 230, 180, 0.32); color: var(--life); }
+    .kind-mastery .pill { background: rgba(255, 181, 107, 0.14); border-color: rgba(255, 181, 107, 0.32); color: var(--mastery); }
+    .kind-assess .pill { background: rgba(143, 182, 255, 0.14); border-color: rgba(143, 182, 255, 0.32); color: var(--assess); }
 
     .row-title {
       font-weight: 500;
       font-size: 0.98rem;
+      color: var(--ink);
     }
 
     .row-meta {
@@ -232,7 +262,7 @@
     }
 
     .previous {
-      margin: 0 0 20px;
+      margin: 0 0 22px;
     }
 
     .previous summary {
@@ -240,19 +270,23 @@
       list-style: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border: 1px solid var(--line);
+      gap: 9px;
+      padding: 11px 18px;
+      border: 1px solid var(--border);
       border-radius: 999px;
-      background: var(--paper);
-      color: var(--navy-soft);
-      font-size: 0.88rem;
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      color: var(--ink);
+      font-size: 0.86rem;
       font-weight: 500;
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
 
     .previous summary:hover,
     .previous summary:focus-visible {
-      border-color: color-mix(in srgb, var(--gold) 40%, var(--line));
+      border-color: var(--border-strong);
+      background: var(--glass-strong);
     }
 
     .previous summary::-webkit-details-marker,
@@ -263,10 +297,10 @@
 
     .previous summary::before {
       content: "";
-      width: 0.38em;
-      height: 0.38em;
-      border-right: 1.6px solid currentColor;
-      border-bottom: 1.6px solid currentColor;
+      width: 0.4em;
+      height: 0.4em;
+      border-right: 1.7px solid var(--gold);
+      border-bottom: 1.7px solid var(--gold);
       transform: rotate(-45deg);
       translate: 0 1px;
       transition: transform 0.15s ease;
@@ -278,7 +312,7 @@
     }
 
     .previous[open] summary {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .empty {
@@ -289,44 +323,20 @@
 
     footer {
       text-align: center;
-      color: var(--muted);
+      color: var(--faint);
       font-size: 0.85rem;
       padding-top: 12px;
     }
 
-    footer a { color: var(--navy-soft); }
+    footer a { color: var(--muted); }
 
     .install {
       margin-top: 10px;
       font-size: 0.8rem;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --cream: #101822;
-        --paper: #182433;
-        --ink: #edf2f7;
-        --muted: #9aa8b7;
-        --line: rgba(247, 241, 229, 0.08);
-        --navy: #e8eef6;
-        --navy-soft: #c9d6e5;
-        --gold-deep: #d4b36a;
-        color-scheme: dark;
-      }
-      body {
-        background:
-          radial-gradient(900px 420px at 50% -80px, rgba(196, 163, 90, 0.12), transparent 55%),
-          #0c141d;
-      }
-      .week-head {
-        background: color-mix(in srgb, #101822 84%, transparent);
-      }
-      a.row:hover, a.row:focus-visible {
-        background: rgba(255, 255, 255, 0.04);
-      }
-      .previous summary {
-        background: var(--paper);
-      }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
     }
   </style>
 </head>

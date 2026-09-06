@@ -241,6 +241,13 @@ def main() -> None:
     day_count = sum(len(week["days"]) for week in weeks)
     print(f"Wrote {OUT_PATH} ({len(weeks)} weeks, {day_count} class days)")
 
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from stamp_version import main as stamp_version
+
+    stamp_version()
+
 
 if __name__ == "__main__":
     main()

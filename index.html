@@ -6,6 +6,8 @@
   <title>Old Testament Seminary · Fall 2026</title>
   <meta name="description" content="Today’s class and the rest of the Fall 2026 Old Testament seminary pacing guide.">
   <meta name="theme-color" content="#050506">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Seminary">
@@ -368,6 +370,7 @@
       assess: "Assess Your Learning",
       break: "No school"
     };
+    const VERSION_KEY = "pacing-guide-version";
 
     function isStandalone() {
       return window.navigator.standalone === true ||
@@ -378,6 +381,57 @@
       return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     }
+
+    async function checkForDeployedUpdate() {
+      try {
+        const res = await fetch("./version.json", { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        const next = String(data.version || "");
+        if (!next) return;
+        const prev = localStorage.getItem(VERSION_KEY);
+        if (prev && prev !== next) {
+          localStorage.setItem(VERSION_KEY, next);
+          const url = new URL(location.href);
+          url.searchParams.set("_v", next);
+          location.replace(url.toString());
+          return;
+        }
+        localStorage.setItem(VERSION_KEY, next);
+      } catch (_) {
+        // Stay on the current build when offline or the version file is unavailable.
+      }
+    }
+
+    function registerUpdateChecks() {
+      checkForDeployedUpdate();
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") checkForDeployedUpdate();
+      });
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) checkForDeployedUpdate();
+      });
+
+      if (!("serviceWorker" in navigator)) return;
+
+      const hadController = Boolean(navigator.serviceWorker.controller);
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (hadController) location.reload();
+      });
+
+      navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).then((reg) => {
+        const poke = () => reg.update();
+        poke();
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") poke();
+        });
+        window.addEventListener("pageshow", (event) => {
+          if (event.persisted) poke();
+        });
+      }).catch(() => {});
+    }
+
+    registerUpdateChecks();
 
     function todayStamp() {
       const param = new URLSearchParams(location.search).get("date");

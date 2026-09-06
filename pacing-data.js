@@ -2,7 +2,7 @@ window.PACING = {
   "title": "Old Testament Seminary",
   "subtitle": "Fall 2026 pacing guide",
   "manualUrl": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng",
-  "generated": "2026-08-18",
+  "generated": "2026-09-06",
   "weeks": [
     {
       "id": "week-2026-08-10",
@@ -13,14 +13,6 @@ window.PACING = {
       "days": [
         {
           "date": "2026-08-10",
-          "schedule": "No School",
-          "label": "No School",
-          "note": "",
-          "kind": "break",
-          "lessons": []
-        },
-        {
-          "date": "2026-08-11",
           "schedule": "Job 1-3; 12-13 (#97)",
           "label": "97. Job 1–3; 12–13",
           "note": "",
@@ -36,9 +28,9 @@ window.PACING = {
           ]
         },
         {
-          "date": "2026-08-12",
-          "schedule": "Job 14; 19 (#98) / Job 21-24; 38-40; 42 (#99)",
-          "label": "98. Job 14; 19 · 99. Job 21–24; 38–40; 42",
+          "date": "2026-08-11",
+          "schedule": "Job 14; 19 (#98)",
+          "label": "98. Job 14; 19",
           "note": "",
           "kind": "scripture",
           "lessons": [
@@ -48,7 +40,16 @@ window.PACING = {
               "fullTitle": "Lesson 98 – Job 14; 19",
               "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/32-job/322-job-14-19?lang=eng",
               "kind": "scripture"
-            },
+            }
+          ]
+        },
+        {
+          "date": "2026-08-12",
+          "schedule": "Job 21-24; 38-40; 42 (#99)",
+          "label": "99. Job 21–24; 38–40; 42",
+          "note": "",
+          "kind": "scripture",
+          "lessons": [
             {
               "number": 99,
               "title": "Job 21–24; 38–40; 42",
@@ -582,6 +583,14 @@ window.PACING = {
         },
         {
           "date": "2026-09-30",
+          "schedule": "No School",
+          "label": "No School",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-10-01",
           "schedule": "Isaiah 49 (#121)",
           "label": "121. Isaiah 49 · 122. Doctrinal Mastery Practice 8",
           "note": "",
@@ -602,22 +611,6 @@ window.PACING = {
               "kind": "mastery"
             }
           ]
-        },
-        {
-          "date": "2026-10-01",
-          "schedule": "Life Preparation",
-          "label": "205. Preparing for General Conference",
-          "note": "",
-          "kind": "life",
-          "lessons": [
-            {
-              "number": 205,
-              "title": "Preparing for General Conference",
-              "fullTitle": "Lesson 205 – Preparing for General Conference",
-              "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/70-teachings-of-church-leaders/701-preparing-for-general-conference?lang=eng",
-              "kind": "life"
-            }
-          ]
         }
       ]
     },
@@ -631,10 +624,17 @@ window.PACING = {
         {
           "date": "2026-10-05",
           "schedule": "Life Preparation",
-          "label": "206. Studying the Messages of the Lord’s Servants",
+          "label": "205. Preparing for General Conference · 206. Studying the Messages of the Lord’s Servants",
           "note": "",
           "kind": "life",
           "lessons": [
+            {
+              "number": 205,
+              "title": "Preparing for General Conference",
+              "fullTitle": "Lesson 205 – Preparing for General Conference",
+              "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/70-teachings-of-church-leaders/701-preparing-for-general-conference?lang=eng",
+              "kind": "life"
+            },
             {
               "number": 206,
               "title": "Studying the Messages of the Lord’s Servants",
@@ -698,6 +698,14 @@ window.PACING = {
               "kind": "life"
             }
           ]
+        },
+        {
+          "date": "2026-10-09",
+          "schedule": "No School",
+          "label": "No School",
+          "note": "",
+          "kind": "break",
+          "lessons": []
         }
       ]
     },
@@ -710,8 +718,24 @@ window.PACING = {
       "days": [
         {
           "date": "2026-10-12",
-          "schedule": "Isaiah 58:1-12 (#126)",
-          "label": "126. Isaiah 58:1–12",
+          "schedule": "No School",
+          "label": "No School",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-10-13",
+          "schedule": "No School",
+          "label": "No School",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-10-14",
+          "schedule": "Isaiah 58:1-12 (#126) / Isaiah 58:13-14 (#127)",
+          "label": "126. Isaiah 58:1–12 · 127. Isaiah 58:13–14",
           "note": "",
           "kind": "scripture",
           "lessons": [
@@ -721,16 +745,7 @@ window.PACING = {
               "fullTitle": "Lesson 126 – Isaiah 58:1–12",
               "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/41-isaiah-58-66/411-isaiah-58-1-12?lang=eng",
               "kind": "scripture"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-13",
-          "schedule": "Isaiah 58:13-14 (#127)",
-          "label": "127. Isaiah 58:13–14",
-          "note": "",
-          "kind": "scripture",
-          "lessons": [
+            },
             {
               "number": 127,
               "title": "Isaiah 58:13–14",
@@ -741,7 +756,7 @@ window.PACING = {
           ]
         },
         {
-          "date": "2026-10-14",
+          "date": "2026-10-15",
           "schedule": "Isaiah 61; 60-66 (#128-129)",
           "label": "128. Isaiah 61 · 129. Isaiah 60–66",
           "note": "",
@@ -760,22 +775,6 @@ window.PACING = {
               "fullTitle": "Lesson 129 – Isaiah 60–66",
               "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/41-isaiah-58-66/414-isaiah-60-66?lang=eng",
               "kind": "scripture"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-15",
-          "schedule": "Life Preparation",
-          "label": "196. Our Covenant Responsibility to Share the Gospel",
-          "note": "",
-          "kind": "life",
-          "lessons": [
-            {
-              "number": 196,
-              "title": "Our Covenant Responsibility to Share the Gospel",
-              "fullTitle": "Lesson 196 – Our Covenant Responsibility to Share the Gospel",
-              "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/68-missionary-preparation/681-covenant-responsibility-to-share-the-gospel?lang=eng",
-              "kind": "life"
             }
           ]
         }
@@ -807,10 +806,17 @@ window.PACING = {
         {
           "date": "2026-10-20",
           "schedule": "Life Preparation",
-          "label": "197. Sharing the Gospel in Natural Ways",
+          "label": "196. Our Covenant Responsibility to Share the Gospel · 197. Sharing the Gospel in Natural Ways",
           "note": "",
           "kind": "life",
           "lessons": [
+            {
+              "number": 196,
+              "title": "Our Covenant Responsibility to Share the Gospel",
+              "fullTitle": "Lesson 196 – Our Covenant Responsibility to Share the Gospel",
+              "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/68-missionary-preparation/681-covenant-responsibility-to-share-the-gospel?lang=eng",
+              "kind": "life"
+            },
             {
               "number": 197,
               "title": "Sharing the Gospel in Natural Ways",
@@ -1069,8 +1075,16 @@ window.PACING = {
         },
         {
           "date": "2026-11-11",
-          "schedule": "Daniel 3 (#144)",
-          "label": "144. Daniel 3",
+          "schedule": "No School",
+          "label": "No School",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-11-12",
+          "schedule": "Daniel 3 (#144) / Daniel 6 (#145)",
+          "label": "144. Daniel 3 · 145. Daniel 6",
           "note": "",
           "kind": "scripture",
           "lessons": [
@@ -1080,16 +1094,7 @@ window.PACING = {
               "fullTitle": "Lesson 144 – Daniel 3",
               "url": "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026/45-daniel/453-daniel-3?lang=eng",
               "kind": "scripture"
-            }
-          ]
-        },
-        {
-          "date": "2026-11-12",
-          "schedule": "Daniel 6 (#145)",
-          "label": "145. Daniel 6",
-          "note": "",
-          "kind": "scripture",
-          "lessons": [
+            },
             {
               "number": 145,
               "title": "Daniel 6",
@@ -1183,6 +1188,38 @@ window.PACING = {
       "days": [
         {
           "date": "2026-11-23",
+          "schedule": "Thanksgiving Break (No School)",
+          "label": "Thanksgiving Break (No School)",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-11-24",
+          "schedule": "Thanksgiving Break (No School)",
+          "label": "Thanksgiving Break (No School)",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-11-25",
+          "schedule": "Thanksgiving Break (No School)",
+          "label": "Thanksgiving Break (No School)",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-11-26",
+          "schedule": "Thanksgiving Break (No School)",
+          "label": "Thanksgiving Break (No School)",
+          "note": "",
+          "kind": "break",
+          "lessons": []
+        },
+        {
+          "date": "2026-11-27",
           "schedule": "Thanksgiving Break (No School)",
           "label": "Thanksgiving Break (No School)",
           "note": "",

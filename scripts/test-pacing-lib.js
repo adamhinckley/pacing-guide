@@ -13,7 +13,7 @@ context.globalThis = context;
 vm.runInNewContext(fs.readFileSync(path.join(root, "pacing-lib.js"), "utf8"), context);
 vm.runInNewContext(fs.readFileSync(path.join(root, "pacing-data.js"), "utf8"), context);
 
-const { upcomingWeeks, previousWeeks, addDays, withLang, lessonUrl } = context.PacingLib;
+const { upcomingWeeks, previousWeeks, addDays, withLang, lessonUrl, lessonEntries } = context.PacingLib;
 const weeks = context.PACING.weeks;
 const today = "2026-08-18";
 const upcoming = upcomingWeeks(weeks, today);
@@ -61,6 +61,7 @@ assert.equal(
 );
 assert.equal(lessonUrl(web + "?lang=eng"), web + "?lang=eng");
 
+const allLessons = weeks.flatMap((week) => week.days.flatMap((day) => day.lessons));
 const lessonHrefs = upcoming.flatMap((week) =>
   week.days.flatMap((day) => day.lessons.map((lesson) => lesson.url))
 );
@@ -74,4 +75,57 @@ for (const href of lessonHrefs) {
   assert.ok(href.includes("?lang=eng"), `lesson URL missing lang: ${href}`);
 }
 
-console.log(`ok: ${upcomingDates.length} upcoming class days from ${upcomingDates[0]} to ${upcomingDates[upcomingDates.length - 1]}; ${previousDates.length} previous`);
+assert.equal(
+  context.PACING.studentManualUrl,
+  "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-student-manual-2026?lang=eng"
+);
+
+const withStudent = allLessons.filter((lesson) => lesson.student);
+const withoutStudent = allLessons.filter((lesson) => !lesson.student);
+assert.equal(withStudent.length, 83, "scripture and life-prep lessons should get student counterparts");
+assert.deepEqual(
+  withoutStudent.map((lesson) => lesson.number),
+  [208],
+  "only Hope of Israel should lack a student counterpart"
+);
+
+for (const lesson of withStudent) {
+  assert.equal(lesson.student.number, lesson.number, `student number mismatch for lesson ${lesson.number}`);
+  assert.equal(lesson.student.title, lesson.title, `student title should pair with teacher lesson ${lesson.number}`);
+  assert.equal(lesson.student.kind, lesson.kind);
+  assert.match(
+    lesson.student.url,
+    /^https:\/\/www.churchofjesuschrist.org\/study\/manual\/old-testament-seminary-student-manual-2026\//,
+    `unexpected student URL: ${lesson.student.url}`
+  );
+  assert.ok(lesson.student.url.includes("?lang=eng"), `student URL missing lang: ${lesson.student.url}`);
+}
+
+const job = allLessons.find((lesson) => lesson.number === 97);
+assert.equal(
+  job.student.url,
+  "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-student-manual-2026/32-job/321-job-1-13?lang=eng"
+);
+assert.deepEqual(
+  lessonEntries(job).map((entry) => entry.audience),
+  ["teacher", "student"]
+);
+assert.equal(
+  lessonUrl(job.student.url, { standalone: true }),
+  "gospellibrary://content/manual/old-testament-seminary-student-manual-2026/32-job/321-job-1-13?lang=eng"
+);
+
+const hope = allLessons.find((lesson) => lesson.number === 208);
+assert.equal(hope.student, undefined);
+assert.deepEqual(
+  lessonEntries(hope).map((entry) => entry.audience),
+  ["teacher"]
+);
+
+const zechariah = allLessons.find((lesson) => lesson.number === 157);
+assert.equal(
+  zechariah.student.url,
+  "https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-student-manual-2026/49-haggai-zechariah/493-zechariah-10-14?lang=eng"
+);
+
+console.log(`ok: ${upcomingDates.length} upcoming class days from ${upcomingDates[0]} to ${upcomingDates[upcomingDates.length - 1]}; ${previousDates.length} previous; ${withStudent.length} student links`);

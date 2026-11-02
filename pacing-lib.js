@@ -47,6 +47,29 @@
     return web;
   }
 
+  function lessonEntries(lesson) {
+    const teacher = {
+      number: lesson.number,
+      title: lesson.title,
+      fullTitle: lesson.fullTitle,
+      url: lesson.url,
+      kind: lesson.kind,
+      audience: "teacher"
+    };
+    if (!lesson.student) return [teacher];
+    return [
+      teacher,
+      {
+        number: lesson.student.number,
+        title: lesson.student.title,
+        fullTitle: lesson.student.fullTitle,
+        url: lesson.student.url,
+        kind: lesson.student.kind,
+        audience: "student"
+      }
+    ];
+  }
+
   global.PacingLib = {
     parseDate,
     stampFromDate,
@@ -54,6 +77,7 @@
     upcomingWeeks,
     previousWeeks,
     withLang,
-    lessonUrl
+    lessonUrl,
+    lessonEntries
   };
 })(typeof window !== "undefined" ? window : globalThis);

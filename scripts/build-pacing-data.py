@@ -12,10 +12,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CSV_PATH = ROOT / "data" / "pacing-guide.csv"
 LESSONS_PATH = ROOT / "data" / "lessons.json"
+STUDENT_LESSONS_PATH = ROOT / "data" / "student-lessons.json"
 OUT_PATH = ROOT / "pacing-data.js"
 
 BASE = "https://www.churchofjesuschrist.org"
 MANUAL = f"{BASE}/study/manual/old-testament-seminary-manual-2026"
+STUDENT_MANUAL = f"{BASE}/study/manual/old-testament-seminary-student-manual-2026"
 YEAR = 2026
 
 CFM_TITLES = {
@@ -95,6 +97,84 @@ def lesson_kind(title: str, numbers: list[int]) -> str:
     return "scripture"
 
 
+def href_slug(href: str) -> str:
+    return href.rstrip("/").split("/")[-1]
+
+
+def manual_rest(href: str, manual_name: str) -> str:
+    needle = f"/{manual_name}"
+    index = href.find(needle)
+    return href[index + len(needle) :] if index >= 0 else href
+
+
+def normalize_title(text: str) -> str:
+    text = clean_space(text).lower()
+    text = text.replace("—", "-").replace("–", "-").replace("“", '"').replace("”", '"')
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def titles_match(teacher_title: str, student_title: str) -> bool:
+    teacher = normalize_title(teacher_title)
+    student = normalize_title(student_title)
+    student_block = normalize_title(re.split(r'[—“”"]', student_title, 1)[0])
+    if teacher in {student, student_block}:
+        return True
+    if (
+        student.startswith(teacher)
+        or teacher.startswith(student)
+        or student_block.startswith(teacher)
+        or teacher.startswith(student_block)
+    ):
+        return True
+    teacher_core = teacher.replace(" part ", " ")
+    student_core = student_block.replace(" part ", " ")
+    return (
+        teacher_core == student_core
+        or student_core.startswith(teacher_core)
+        or teacher_core.startswith(student_core)
+    )
+
+
+def is_student_counterpart(teacher: dict, student: dict) -> bool:
+    if teacher["number"] != student["number"]:
+        return False
+    if titles_match(teacher["title"], student["title"]):
+        return True
+    if href_slug(teacher["href"]) == href_slug(student["href"]):
+        return True
+    teacher_rest = manual_rest(teacher["href"], "old-testament-seminary-manual-2026")
+    student_rest = manual_rest(student["href"], "old-testament-seminary-student-manual-2026")
+    return teacher_rest == student_rest
+
+
+def load_catalog(path: Path) -> dict[int, dict]:
+    catalog: dict[int, dict] = {}
+    for item in json.loads(path.read_text()):
+        match = re.match(r"Lesson (\d+)[—–-]\s*(.*)", item["title"])
+        if not match:
+            continue
+        number = int(match.group(1))
+        catalog[number] = {
+            "number": number,
+            "title": match.group(2).strip(),
+            "fullTitle": item["title"].replace("—", " – "),
+            "href": item["href"],
+            "url": BASE + item["href"] + "?lang=eng",
+        }
+    return catalog
+
+
+def student_entry(teacher: dict, student: dict, kind: str) -> dict:
+    return {
+        "number": student["number"],
+        "title": teacher["title"],
+        "fullTitle": student["fullTitle"],
+        "url": student["url"],
+        "kind": kind,
+    }
+
+
 def parse_lesson_numbers(*parts: str) -> list[int]:
     text = " ".join(p for p in parts if p)
     numbers: list[int] = []
@@ -113,19 +193,8 @@ def parse_lesson_numbers(*parts: str) -> list[int]:
 
 
 def main() -> None:
-    catalog_items = json.loads(LESSONS_PATH.read_text())
-    catalog: dict[int, dict] = {}
-    for item in catalog_items:
-        match = re.match(r"Lesson (\d+)[—–-]\s*(.*)", item["title"])
-        if not match:
-            continue
-        number = int(match.group(1))
-        catalog[number] = {
-            "number": number,
-            "title": match.group(2).strip(),
-            "fullTitle": item["title"].replace("—", " – "),
-            "url": BASE + item["href"] + "?lang=eng",
-        }
+    catalog = load_catalog(LESSONS_PATH)
+    student_catalog = load_catalog(STUDENT_LESSONS_PATH)
 
     weeks = []
     current = None
@@ -179,12 +248,18 @@ def main() -> None:
             for number in numbers:
                 info = catalog.get(number)
                 if info:
-                    lessons.append(
-                        {
-                            **info,
-                            "kind": lesson_kind(info["fullTitle"], [number]),
-                        }
-                    )
+                    kind = lesson_kind(info["fullTitle"], [number])
+                    lesson = {
+                        "number": info["number"],
+                        "title": info["title"],
+                        "fullTitle": info["fullTitle"],
+                        "url": info["url"],
+                        "kind": kind,
+                    }
+                    student_info = student_catalog.get(number)
+                    if student_info and is_student_counterpart(info, student_info):
+                        lesson["student"] = student_entry(info, student_info, kind)
+                    lessons.append(lesson)
                 else:
                     lessons.append(
                         {
@@ -231,6 +306,7 @@ def main() -> None:
         "title": "Old Testament Seminary",
         "subtitle": "Fall 2026 pacing guide",
         "manualUrl": MANUAL + "?lang=eng",
+        "studentManualUrl": STUDENT_MANUAL + "?lang=eng",
         "generated": date.today().isoformat(),
         "weeks": weeks,
     }

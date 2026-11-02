@@ -347,13 +347,15 @@
     <header class="hero">
       <div class="eyebrow">Fall 2026</div>
       <h1>Old Testament Seminary</h1>
-      <p class="lede">Today’s class and the days ahead, each linked to the teacher manual.</p>
+      <p class="lede">Today’s class and the days ahead, each linked to the teacher and student manuals.</p>
     </header>
     <main id="app"></main>
     <footer>
       <p>
         Lessons open in the
-        <a href="https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng">Old Testament Seminary Teacher Manual</a>.
+        <a href="https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng">Old Testament Seminary Teacher Manual</a>
+        and the
+        <a href="https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-student-manual-2026?lang=eng">Old Testament Seminary Student Manual</a>.
       </p>
       <p class="install">Add to Home Screen from your browser’s share menu to keep this guide on your phone.</p>
     </footer>
@@ -451,21 +453,28 @@
       return `href="${href}"${extra}`;
     }
 
-    function lessonRow(lesson) {
+    function lessonRow(lesson, audience) {
+      const role = audience === "student" ? "Student" : "Teacher";
       return `<a class="row kind-${lesson.kind}" ${openAttrs(lesson.url)}>
         <span class="pill">${lesson.number}</span>
         <span>
           <div class="row-title">${lesson.title}</div>
-          <div class="row-meta">${kindLabel(lesson)}</div>
+          <div class="row-meta">${kindLabel(lesson)} · ${role}</div>
         </span>
       </a>`;
+    }
+
+    function lessonRows(lesson) {
+      return PacingLib.lessonEntries(lesson)
+        .map((entry) => lessonRow(entry, entry.audience))
+        .join("");
     }
 
     function dayCard(day, today) {
       const dt = PacingLib.parseDate(day.date);
       const lessons = day.kind === "break"
         ? `<div class="break-note">${day.schedule}</div>`
-        : day.lessons.map((lesson) => lessonRow(lesson)).join("");
+        : day.lessons.map((lesson) => lessonRows(lesson)).join("");
       return `<article class="day${day.date === today ? " is-today" : ""}">
         <div class="datecol">
           <div class="dow">${DOW[dt.getDay()].slice(0, 3)}</div>
@@ -496,7 +505,10 @@
     }
 
     function emptyNote(message) {
-      return `<div class="empty">${message} You can still browse the <a href="${window.PACING.manualUrl}">teacher manual</a>.</div>`;
+      const manuals = window.PACING.studentManualUrl
+        ? `<a href="${window.PACING.manualUrl}">teacher manual</a> and <a href="${window.PACING.studentManualUrl}">student manual</a>`
+        : `<a href="${window.PACING.manualUrl}">teacher manual</a>`;
+      return `<div class="empty">${message} You can still browse the ${manuals}.</div>`;
     }
 
     function render() {

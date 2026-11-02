@@ -1,6 +1,6 @@
 # Old Testament Seminary pacing guide
 
-A phone-friendly page for the Fall 2026 4-day Old Testament seminary schedule. It opens on **today’s lesson** and the rest of the year. Earlier class days are under **Previous lessons**. Each lesson opens the matching page in the [Old Testament Seminary Teacher Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng).
+A phone-friendly page for the Fall 2026 4-day Old Testament seminary schedule. It opens on **today’s lesson** and the rest of the year. Earlier class days are under **Previous lessons**. Each lesson opens the matching pages in the [Old Testament Seminary Teacher Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-manual-2026?lang=eng) and the [Old Testament Seminary Student Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-student-manual-2026?lang=eng).
 
 Open [index.html](index.html) in a browser, or enable GitHub Pages on this repository and visit the published site.
 
@@ -17,6 +17,8 @@ The navy-and-gold book icon is included so the page looks like a small app on a 
 1. Edit `data/pacing-guide.csv`.
 2. Run `python3 scripts/build-pacing-data.py`.
 3. Refresh `index.html`.
+
+Teacher lesson URLs come from `data/lessons.json`. Matching student lesson URLs come from `data/student-lessons.json` (the [Old Testament Seminary Student Manual](https://www.churchofjesuschrist.org/study/manual/old-testament-seminary-student-manual-2026?lang=eng) catalog). The build pairs them by lesson number and scripture block.
 
 The build also refreshes `version.json`, which home-screen installs use to detect new deploys. After editing `index.html` or other static files without rebuilding the schedule, run `python3 scripts/stamp_version.py`.
 
